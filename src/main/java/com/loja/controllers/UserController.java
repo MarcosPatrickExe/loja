@@ -77,10 +77,11 @@ public class UserController {
           // A Anotação "RequestBody" define que o método receberá os dados da requisição do tipo JSON
           
           this.usuarios.add(usu);
-
           System.out.println("usuário cadastrado com sucesso!!!");
 
-          return this.U ;
+          this.userRepository.save(usu);
+          
+          return usu;
      }
 
 
