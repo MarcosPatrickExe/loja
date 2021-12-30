@@ -26,7 +26,8 @@ public class UserController {
     */
 
      @Autowired 
-     // Essa anotação torna disponível o uso da variável - que tem como tipo a interface "UserRepository" - dentro dessa classe
+     /* Essa anotação torna disponível o uso da variável - que tem como tipo a interface "UserRepository" 
+     - dentro dessa classe  */
      private UserRepository userRepository;
      // Essa variável irá permitir a conexão com o banco de dados
 
@@ -79,9 +80,9 @@ public class UserController {
           this.usuarios.add(usu);
           System.out.println("usuário cadastrado com sucesso!!!");
 
-          this.userRepository.save(usu);
+          return this.userRepository.save(usu);
           
-          return usu;
+          //return usu;
      }
 
 
@@ -89,4 +90,25 @@ public class UserController {
      public int tamanhoLista(){
           return this.usuarios.size();
      }
+
+
+     @GetMapping("/id_more_than/{id}")
+     public List<User> IdMoreThan(@PathVariable Long id){
+
+          return this.userRepository.findAllMoreThan(id);
+     /*   Usando o método "userMoreThanId" que foi definido e 
+          personalizado na interface "UserRepository"             */
+     }
+
+     @GetMapping("/find_by_name/{nome}")
+     public List<User> findaName(@PathVariable String nome){
+          return this.userRepository.findByName(nome);
+     }
+
+     @GetMapping("/find_by_name_IC/{nome}")
+     public List<User> findByNameWithoutCase(@PathVariable String nome){
+          
+          return this.userRepository.findByNameIgnoreCase(nome);
+     }
+
 }
